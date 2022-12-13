@@ -38,7 +38,7 @@ public class UserController {
 		return new ResponseEntity<Map<String, String>>(res, HttpStatus.OK);
 	}
 	
-	@GetMapping("/userInfo")
+	@PostMapping("/userInfo")
 	public ResponseEntity<User> userInfo(@RequestParam("id") String id){
 		User user = (User)customUserDetailsService.loadUserByUsername(id);
 		return new ResponseEntity<User> (user, HttpStatus.OK); 

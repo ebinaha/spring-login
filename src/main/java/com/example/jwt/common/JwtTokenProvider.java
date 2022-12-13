@@ -52,7 +52,19 @@ public class JwtTokenProvider {
 		Date now = new Date();
 		return Jwts.builder().setClaims(claims).setId(userPk)
 				.setIssuedAt(now) //만들어진 시간
+				//.setExpiration(new Date(now.getTime())) // 만료 시간 테스트용
 				.setExpiration(new Date(now.getTime()+tokenValidTime)) // 만료 시간
+				.signWith(SignatureAlgorithm.HS256, secretKey) // 알고리즘 이용 => key로 서명
+				.compact();
+		
+	}
+	
+	public String createToken2(String userPk) {
+		Claims claims = Jwts.claims().setSubject(userPk);
+		Date now = new Date();
+		return Jwts.builder().setClaims(claims).setId(userPk)
+				.setIssuedAt(now) //만들어진 시간
+				.setExpiration(new Date(now.getTime())) // 만료 시간 테스트용
 				.signWith(SignatureAlgorithm.HS256, secretKey) // 알고리즘 이용 => key로 서명
 				.compact();
 		
