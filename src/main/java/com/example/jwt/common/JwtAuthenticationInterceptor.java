@@ -29,7 +29,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 		if(token==null) return true;
 		
 		String[] tokens = token.split(",");
-		
+
 		// 2) access 토큰이 유효한 경우 : 정상 처리
 		if(jwtTokenProvider.validateToken(tokens[0])) {
 			System.out.println("2. accessToken 유효");
@@ -44,7 +44,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 에러코드 401
 			// JSON 형태로 변환 : GSON 사용하기도 함
 			// 100 : 토큰 만료, 리프레시 토큰 재요청 
-			response.getWriter().write("{\"rescode\":\"100}");
+			response.getWriter().write("{\"rescode\":100}");
 			response.getWriter().flush();
 		} else if (jwtTokenProvider.validateToken(tokens[1])) { // 3-2) access, refresh 토큰 유효 : 새로운 2개의 토큰 재발급
 			System.out.println("4. refreshToken 유효");
